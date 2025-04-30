@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco Arrastável e Redimensionável</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            /*background-color: #f0f0f0;*/
+        }
+
+        .controls button {
+            margin-right: 8px;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="js/class/manager.class.v0001.js"></script>
+    <script src="js/class/managerVerify.class.v0001.js"></script>
+    <script src="js/class/managerZIndex.class.v0001.js"></script>
+    <script src="js/class/managerCollision.class.v0001.js"></script>
+    <script src="js/class/contextMenu.class.v0001.js"></script>
+    <script src="js/class/sequentialID.class.v0001.js"></script>
+    <script src="js/class/connection.class.v0001.js"></script>
+    <script src="js/class/drawUtils.class.v0001.js"></script>
+    <script src="js/class/ornamentDraw.class.v0001.js"></script>
+    <script src="js/class/warningMark.class.v0001.js"></script>
+    <script src="js/class/ornament/math/ornamentOpAmpSymbol.class.v0001.js"></script>
+    <script src="js/class/ornament/math/ornamentMultiplier.class.v0001.js"></script>
+    <script src="js/class/ornament/math/ornamentAdd.class.v0001.js"></script>
+    <script src="js/class/ornament/math/ornamentSubtract.class.v0001.js"></script>
+    <script src="js/class/ornament/math/ornamentDivider.class.v0001.js"></script>
+    <script src="js/class/ornament/doubleLoopArrow/doubleLoopArrow.class.v0001.js"></script>
+    <script src="js/class/devices/block.class.v0001.js"></script>
+    <script src="js/class/devices/genericDevice.class.v0001.js"></script>
+    <script src="js/class/devices/math/deviceOpAmp.class.v0001.js"></script>
+    <script src="js/class/devices/math/deviceAdd.class.v0001.js"></script>
+</head>
+<body>
+
+<div class="container" id="container"></div>
+
+<script>
+
+    const params = new URLSearchParams(window.location.search);
+
+    const debugStr = params.get("debug");
+    const debug = debugStr && (debugStr.toLowerCase() === "true" || debugStr === "1");
+
+    const manager = new Manager();
+    const sequentialID = new SequentialID();
+
+    const container = document.getElementById("container");
+    const loopBlock = new GenericDevice(container, "device", 50, 50);
+    loopBlock.setSize(400, 400);
+    loopBlock.setSequentialID(sequentialID);
+    loopBlock.setDebugMode(debug);
+    loopBlock.setName("loop");
+    loopBlock.init();
+
+    const deviceAdd_1 = new DeviceAdd(container, "test", 250, 550);
+    deviceAdd_1.setSequentialID(sequentialID);
+    deviceAdd_1.setSize(50, 50);
+    deviceAdd_1.setDebugMode(debug);
+    deviceAdd_1.setName("add 1");
+    deviceAdd_1.init();
+
+    const deviceAdd_2 = new DeviceAdd(container, "test", 150, 550);
+    deviceAdd_2.setSequentialID(sequentialID);
+    deviceAdd_2.setSize(50, 50);
+    deviceAdd_2.setDebugMode(debug);
+    deviceAdd_2.setName("add 2");
+    deviceAdd_2.init();
+
+    manager.add(loopBlock);
+    manager.add(deviceAdd_1);
+    manager.add(deviceAdd_2);
+</script>
+</body>
+</html>
